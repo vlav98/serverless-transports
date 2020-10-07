@@ -1,4 +1,41 @@
-<script src="main.js" async defer></script>
+<script src="../main.js"></script>
+<script>
+    // Create a request variable and assign a new XMLHttpRequest object to it.
+        var request = new XMLHttpRequest()
+
+    // Open a new connection, using the GET request on the URL endpoint
+    request.open(
+        "GET",
+        "https://dataratp2.opendatasoft.com/api/records/1.0/search/?dataset=accessibilite-des-lignes-du-reseau-de-surface-ratp&q=",
+        true
+    );
+
+    request.onload = function () {
+        // Begin accessing JSON data here
+        var data = JSON.parse(this.response);
+
+        /* data.forEach((data) => {
+        // Log each movie's title
+            console.log(data.destination)
+            console.log(data.)
+        }) */
+        if (request.status >= 200 && request.status < 400) {
+            data = data.records;
+            data.forEach((data) => {
+                console.log(data.fields);
+                console.log(data.fields.nom_de_ligne);
+                console.log(data.fields.destination);
+                console.log(data.fields.code_stif);
+            });
+        } else {
+            console.log("error");
+        }
+    }
+
+    // Send request
+    request.send()
+
+</script>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
     integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
     crossorigin="anonymous"></script>
