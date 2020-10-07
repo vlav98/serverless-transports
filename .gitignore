@@ -27,4 +27,4 @@ coverage
 benchmarks/graphs
 
 # Environnment
-server/.env
+.env
