@@ -26,4 +26,4 @@ functions:
     handler: handler.deleteItem
 
 resources:
-  - ${file(resources/dynamo-table.yml)}
+  - ${file(resources/transport.yml)}

@@ -5,20 +5,25 @@ Resources:
     Properties:
       AttributeDefinitions:
         - 
-          AttributeName: "year"
-          AttributeType: "N"
+          AttributeName: "transportId"
+          AttributeType: "S"
         - 
-          AttributeName: "title"
+          AttributeName: "destination"
+          AttributeType: "S"
+        - 
+          AttributeName: "nom_de_ligne"
           AttributeType: "S"
 
       KeySchema:
-        - AttributeName: "year"    # Partition Key
-          KeyType: "HASH"
-        - AttributeName: "title"    # Sort Key
+        - AttributeName: "transportId"
+          KeyType: "RANGE"
+        - AttributeName: "destination"
+          KeyType: "RANGE"
+        - AttributeName: "nom_de_ligne"
           KeyType: "RANGE"
 
       TableName: "Transport"     
 
-      ProvisionedThroughput:   # Optional, can be skipped
-        ReadCapacityUnits: 10
-        WriteCapacityUnits: 10
+      # ProvisionedThroughput:   # Optional, can be skipped
+      #   ReadCapacityUnits: 10
+      #   WriteCapacityUnits: 10
