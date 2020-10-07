@@ -1,65 +1,54 @@
 "use strict";
 const AWS = require("aws-sdk");
 
-const docClient = new AWS.DynamoDB.DocumentClient();
+const documentClient = new AWS.DynamoDB.DocumentClient();
+const TABLE_NAME = "Transport";
 
 // Function to Create an Item to DB
-module.exports.addItem = async (event) => {
+module.exports.addItem = async (event, context) => {
+  let params = {
+    TableName: TABLE_NAME,
+    Item: {
+      transportId: context.awsRequestId,,
+      destination: event.destination,
+      nom_de_ligne: event.nom_de_ligne,
+    },
+  };
+
   try {
-    let table = "Transport";
-
-    let params = {
-      TableName: transport,
-      Item: {
-        transportId: transportId,
-        destination: destination,
-        nom_de_ligne: nom_de_ligne,
-      },
-    };
-
-    let result = await docClient.put(params).promise();
-    if (result) {
-      console.log(">>>>>>>>>", result);
-    }
-
-    console.log("hello world");
+    const data = await documentClient.put(params).promise();
+    console.log(data)
     return {
       statusCode: 200,
       body: JSON.stringify({
         message: "Go Serverless v1.0! Your function executed successfully!",
-        data: result,
+        data: data,
       }),
     };
-  } catch (error) {
-    console.log(error);
+  }catch(err){
+      console.log(err)
     return error;
   }
 };
 
 // Function to getAllItems from DB
-module.exports.getAllItem = async () => {
-  let table = "Movies";
-  let year = 2015;
-
-  let title = "The Big New Movie";
-
+module.exports.getAllItem = async (event) => {
   let params = {
-    TableName: table,
+    TableName: TABLE_NAME,
     Key: {
-      year: year,
-      title: title,
+      destination: event.destination,
+      nom_de_ligne: event.nom_de_ligne,
     },
   };
 
   try {
-    let result = await docClient.get(params).promise();
-
-    console.log(result);
+    const data = await documentClient.put(params).promise();
+    console.log(data);
 
     return {
       body: JSON.stringify({
         message: "Executed succesfully",
-        data: result,
+        data: data,
       }),
     };
   } catch (error) {
@@ -68,17 +57,13 @@ module.exports.getAllItem = async () => {
 };
 
 // Function to update an Item in DB
-module.exports.updateItem = async () => {
-  let table = "Movies";
-  let year = 2015;
-
-  let title = "The Big New Movie";
+module.exports.updateItem = async (event) => {
 
   let params = {
-    TableName: table,
+    TableName: TABLE_NAME,
     Key: {
-      year: year,
-      title: title,
+      destination: event.destination,
+      nom_de_ligne: event.nom_de_ligne,
     },
     UpdateExpression: "set info.rating = info.rating + :val",
     ExpressionAttributeValues: {
@@ -88,11 +73,11 @@ module.exports.updateItem = async () => {
   };
 
   try {
-    let result = await docClient.update(params).promise();
+    const data = await documentClient.update(params).promise();
     return {
       body: JSON.stringify({
         message: "updated succesfully",
-        data: result,
+        data: data,
       }),
     };
   } catch (error) {
@@ -101,26 +86,21 @@ module.exports.updateItem = async () => {
 };
 
 // Function to Delete an item
-module.exports.deleteItem = async () => {
-  let table = "Movies";
-  let year = 2015;
-
-  let title = "The Big New Movie";
+module.exports.deleteItem = async (event) => {
 
   let params = {
     TableName: table,
     Key: {
-      year: year,
-      title: title,
+      destination: event.destination,
     },
   };
 
-  let result = await docClient.delete(params).promise();
+  const data = await documentClient.delete(params).promise();
 
   return {
     body: JSON.stringify({
       message: "deleted succesfully",
-      data: result,
+      data: data,
     }),
   };
 };
