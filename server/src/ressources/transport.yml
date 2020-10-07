@@ -1,0 +1,24 @@
+Resources:
+  myDynamoDBTable:    # Logical Id of the resource
+    Type: AWS::DynamoDB::Table
+
+    Properties:
+      AttributeDefinitions:
+        - 
+          AttributeName: "year"
+          AttributeType: "N"
+        - 
+          AttributeName: "title"
+          AttributeType: "S"
+
+      KeySchema:
+        - AttributeName: "year"    # Partition Key
+          KeyType: "HASH"
+        - AttributeName: "title"    # Sort Key
+          KeyType: "RANGE"
+
+      TableName: "Transport"     
+
+      ProvisionedThroughput:   # Optional, can be skipped
+        ReadCapacityUnits: 10
+        WriteCapacityUnits: 10
