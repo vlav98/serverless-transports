@@ -6,7 +6,7 @@ app.set("view engine", "ejs");
 app.set("trust proxy", 1);
 
 app.get("/", (req, res) => {
-    res.render("./../client/index.ejs");
+    res.render("./../client/base.ejs");
 });
 
 app.listen(port, () => {
