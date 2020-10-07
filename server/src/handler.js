@@ -42,7 +42,7 @@ module.exports.getAllItem = async (event) => {
   };
 
   try {
-    const data = await documentClient.put(params).promise();
+    const data = await documentClient.get(params).promise();
     console.log(data);
 
     return {

@@ -5,16 +5,16 @@ Resources:
     Properties:
       AttributeDefinitions:
         - 
-          AttributeName: "year"
-          AttributeType: "N"
+          AttributeName: "destination"
+          AttributeType: "S"
         - 
-          AttributeName: "title"
+          AttributeName: "nom_de_ligne"
           AttributeType: "S"
 
       KeySchema:
-        - AttributeName: "year"    # Partition Key
+        - AttributeName: "destination"    # Partition Key
           KeyType: "HASH"
-        - AttributeName: "title"    # Sort Key
+        - AttributeName: "nom_de_ligne"    # Sort Key
           KeyType: "RANGE"
 
       TableName: "Transport"     
