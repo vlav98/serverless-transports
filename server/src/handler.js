@@ -89,7 +89,7 @@ module.exports.updateItem = async (event) => {
 module.exports.deleteItem = async (event) => {
 
   let params = {
-    TableName: table,
+    TableName: TABLE_NAME,
     Key: {
       destination: event.destination,
     },
