@@ -2,27 +2,13 @@ const express = require('express')
 const app = express()
 const port = 3000
 
-app.get('/', (req, res) => {
-    res.send('Hello World!')
-})
+app.set("view engine", "ejs");
+app.set("trust proxy", 1);
+
+app.get("/", (req, res) => {
+    res.render("./../client/index.ejs");
+});
 
 app.listen(port, () => {
     console.log(`Example app listening at http://localhost:${port}`)
 })
-
-/* const { port, env } = require('./config/vars');
-const logger = require('./config/logger');
-const app = require('./config/express');
-const mongoose = require('./config/mongoose');
-
-// open mongoose connection
-mongoose.connect();
-
-// listen to requests
-app.listen(port, () => logger.info(`server started on port ${port} (${env})`));
-
-/**
-* Exports express
-* @public
-*/
-/*module.exports = app; */
